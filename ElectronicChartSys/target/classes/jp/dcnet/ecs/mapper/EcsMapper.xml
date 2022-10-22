@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.dcnet.ecs.mapper.EcsMapper">
+
+	<!-- <insert id="saveUser" parameterType="String"> insert into xxx() </insert> -->
+
+	<select id="findUser" resultType="Integer">
+		SELECT
+		COUNT(1)
+		FROM
+		USER_INFO_TBL
+		WHERE
+		1=1
+
+		<if test="ishiId != null">
+			AND
+			USER_ID = #{ishiId}
+		</if>
+
+		<if test="password != null">
+			AND
+			PASSWORD = #{password}
+		</if>
+
+	</select>
+
+
+
+</mapper>
