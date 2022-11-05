@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import jp.dcnet.ecs.dto.BunsyoJyohoDto;
 import jp.dcnet.ecs.form.LoginForm;
 import jp.dcnet.ecs.service.LoginService;
 
@@ -32,9 +33,12 @@ public class LoginController {
 	 * @return
 	 */
 	@GetMapping("/login")
-	public ModelAndView login() {
+	public ModelAndView login(Model model) {
 
 		ModelAndView mav = new ModelAndView("/login");
+		
+		model.addAttribute("loginx", "佐藤二");
+		model.addAttribute("userId", "サトウ二");
 
 		return mav;
 	}
@@ -65,21 +69,15 @@ public class LoginController {
 		}
 
 		//新規セッション指定のときは存在しているセッションを無効にする
-		HttpSession session = request.getSession();
-
-		if ((session.isNew() == false) && (request.getParameterValues("BunsyoJyohoDto") != null)) {
-			session.invalidate();
-		} else {
-
-			String nameForSession = ishiId;
-
-			session.setAttribute("bunsyoJyohoDto", nameForSession);
-
-		}
+		HttpSession session = request.getSession(true);
 
 		boolean res = loginService.findUser(ishiId, password);
 
 		if (res) {
+
+			BunsyoJyohoDto bunsyoJyohoDto = new BunsyoJyohoDto();
+			bunsyoJyohoDto.setIshiId(ishiId);
+			session.setAttribute("bunsyoJyohoDto", bunsyoJyohoDto);
 
 			mav.setViewName("/main");
 

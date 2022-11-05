@@ -20,8 +20,8 @@
 
 	  </table>
 	  
-	<form th:action="@{/loginProcess}" method="post" th:object="${loginForm}">
-       <p th:if="${#fields.hasErrors('idAndPassword')}" th:errors="*{idAndPassword}"></p>
+	<form th:action="@{/loginProcess}" method="post" >
+       
 	  <div class="mb-3">
 	    <label for="ishiId" class="form-label">医師ID</label>
 	    <input type="text" class="form-control" id="ishiId" name="ishiId">
@@ -30,7 +30,7 @@
 	    <label for="password" class="form-label">パスワード</label>
 	    <input type="password" class="form-control" id="password" name="password">
 	  </div>
-	  <button type="submit" class="btn btn-primary">ログイン</button>
+	  <button type="submit" class="btn btn-primary"><span th:text="${loginx}+'/' +' 漢字名：'+${userId}+'/' +' カタカナ名：'+ ${userId}"></span></button>
 	</form>
 </body>
 </html>
